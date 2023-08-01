@@ -1,20 +1,77 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ClaraMove : MonoBehaviour
 {
-    
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameObject Clara;
+    /*
+     * 필요한 변수 정리
+     * speed -> 이동할때 한번 이동할
+     * attackRange -> 공격 범위
+     * 
+     * 시작하기 앞서서 필요한 method 정리
+     *
+     * move() -> 클라라가 이동하는 함수
+     *      getMoveDir() -> 클라라가 이동해야될 방향을 알려주는 함수
+     *      getRange() -> 클라라가 이동이 가능한 범위를 가져오는 함수(각 맵이 다 연결되어 있어서 이동에 있어 범위를 플레이어 쪽으로 정해주는 것이 중요)
+     * attack() -> 클라라가 플레이어를 공격하는 함수
+     *      isPlayerInRange() -> 플레이어가 클라라의 공격 거리 안에 들어있는지 체크하는 함수
+     * interaction() -> 클라라가 문, 숨은 곳 들쳐보기 등등의 행동을 취할 것인지를 판단하고 실행에 옮기는 함수
+     *      isAble2Interaction() -> 클라라가 상호 작용이 가능한 오브젝트에 거리에 맞게 있는지를 확인하는 함수
+     *      
+     *      
+     */
+
+
+    [SerializeField] private float speed;
+    [SerializeField] private float attackRange;
+
+    private void Update()
     {
-        
+        move();
+        attack();
+        interaction();
+    }
+
+
+    void move() {
         
     }
 
-    // Update is called once per frame
-    void Update()
+    Vector2 getMoveDir()
     {
+        return Vector2.zero;
         
     }
+
+    Vector2 getRange()
+    {
+        return Vector2.zero;
+        
+    }
+
+
+
+    void attack()
+    {
+        if (!isPlayerInRange()) return;
+    }
+
+    bool isPlayerInRange()
+    {
+        
+
+        return false;
+    }
+
+
+    void interaction()
+    {
+    }
+
+
 }
