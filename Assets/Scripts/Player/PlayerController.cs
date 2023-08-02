@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isHide;
     private bool canHide;
 
+    [HideInInspector] public bool isWalk;
+
     private GameObject mainCamera;
 
     void Awake()
@@ -26,6 +28,8 @@ public class PlayerController : MonoBehaviour
         isLive = true;
         isHide = false;
         canHide = false;
+
+        isWalk = false;
     }
 
     void Update()
@@ -35,32 +39,28 @@ public class PlayerController : MonoBehaviour
             //move player
             if (!isHide)
             {
-                float xInput = Input.GetAxis("Horizontal");
+                float xInput = Input.GetAxisRaw("Horizontal");
                 float xSpeed = xInput * moveSpeed;
 
-                Vector2 newVelocity = new Vector2(xSpeed, 0.0f);
-                rigid.velocity = newVelocity;
-
+                if (xInput != 0) {
+                    isWalk = true;
+                    transform.localScale = new Vector3(xInput * 3, 3, 0);
+                }
+             
+                rigid.velocity = new Vector2(xSpeed, 0.0f);
             }
 
             //hide player
-            if (canHide && !isHide)
-            {
-                Debug.Log("you can hide");
-
-                if(Input.GetKeyDown(KeyCode.S)) isHide = true;
+            if (canHide && Input.GetKey(KeyCode.S)) {
+                rigid.velocity = new Vector2(0.0f, 0.0f);
+                isHide = true;
             }
-            else if (canHide && isHide)
-            {
-                Debug.Log("you can go to out");
-
-                if (Input.GetKeyDown(KeyCode.S)) isHide = false;
-            }
+            else isHide = false;
 
             //move camera
             if (-5.0f < rigid.position.x && rigid.position.x < 5.0f)
             {
-                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 1.0f, mainCamera.transform.position.z);
+                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 2.0f, mainCamera.transform.position.z);
             }
 
             //
@@ -75,10 +75,12 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "HideObject") canHide = true;
+        Debug.Log("can hide");
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.tag == "HideObject") canHide = false;
+        Debug.Log("can't hide");
     }
 }
