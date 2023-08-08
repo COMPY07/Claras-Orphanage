@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 public class ClaraMove : MonoBehaviour
 {
-
+    [Header("???")]
     [SerializeField] private GameObject Clara;
     /*
      * 필요한 변수 정리
@@ -27,6 +27,8 @@ public class ClaraMove : MonoBehaviour
      *      
      */
     
+    
+    [Header("Stats")]
     [SerializeField] private float speed;
     [SerializeField] private float attackRange;
     [SerializeField] private float soundRange;
@@ -35,6 +37,10 @@ public class ClaraMove : MonoBehaviour
     private Vector3 dir;
     private bool heard, attacking;
     private float moveTime;
+
+    
+    [Header("맨 끝")]
+    [SerializeField] private float left, right;
 
     private void Start() {
         
@@ -57,14 +63,16 @@ public class ClaraMove : MonoBehaviour
 
     void move() {
         if (moveTime <= 0) { moveSetup(); }
-        
         moveTime -= Time.deltaTime;
-        this.gameObject.transform.Translate(dir * speed);
+        if ((transform.position + dir * speed * Time.deltaTime).x > right ||
+            (transform.position + dir * speed * Time.deltaTime).x < left) dir *= -1;
+        this.gameObject.transform.Translate(dir * speed * Time.deltaTime);
     }
     
     // region move sub methods
     
     void moveSetup() {
+        
         if (getDistance() - moveRange < 0) { moveTime = Random.Range(1f, 3f); }
         else {
             dir = GameManager.Player.transform.position.x - transform.position.x > 0 ? Vector3.right : Vector3.left;

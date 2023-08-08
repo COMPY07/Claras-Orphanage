@@ -12,5 +12,5 @@ public class GameManager : MonoBehaviour
         Player = GameObject.FindWithTag("Player");
         Clara = GameObject.FindGameObjectWithTag("Clara");
     }
-    
+    public static float getDistance() { return Math.Abs(Clara.transform.position.x - Player.transform.position.x); }
 }

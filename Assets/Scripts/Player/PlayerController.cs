@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
 
     private GameObject mainCamera;
 
+    public float HeartSoundRange;
+    AudioSource audioSoure;
+    
+
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -30,12 +34,14 @@ public class PlayerController : MonoBehaviour
         isHide = false;
         canHide = false;
         isWalk = false;
+        if(audioSoure != null) audioSoure.loop = true;
     }
 
     void Update()
     {
         if (isLive)
         {
+            // Heart()
             //move player
             if (!isHide)
             {
@@ -66,6 +72,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    void Heart()
+    {
+        if (audioSoure != null)
+        {
+            audioSoure.volume = HeartSoundRange / GameManager.getDistance();
+        }
+    }
     public void Dead()
     {
         
