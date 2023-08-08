@@ -30,14 +30,23 @@ public class ClaraMove : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float attackRange;
     [SerializeField] private float soundRange;
-    
-    private Vector3 dir;
+    [SerializeField] private float moveRange;
 
+    private Vector3 dir;
+    private bool heard, attacking;
     private float moveTime;
 
-    private void Start()
+    private void Start() {
+        
+        setup();
+    }
+
+    void setup()
     {
         dir = Vector3.zero;
+        moveTime = 0;
+        heard = false;
+        attacking = false;
     }
 
     private void Update() {
@@ -48,44 +57,53 @@ public class ClaraMove : MonoBehaviour
 
     void move() {
         if (moveTime <= 0) { moveSetup(); }
-
-        moveTime += Time.deltaTime;
-        this.gameObject.transform.Translate(dir * speed);
         
+        moveTime -= Time.deltaTime;
+        this.gameObject.transform.Translate(dir * speed);
     }
     
     // region move sub methods
     
-    void moveSetup()
-    {
-        moveTime = Random.Range(1, 7);
-        
-    }
-
-    void movePlace(Vector2 position){
-        
+    void moveSetup() {
+        if (getDistance() - moveRange < 0) { moveTime = Random.Range(1f, 3f); }
+        else {
+            dir = GameManager.Player.transform.position.x - transform.position.x > 0 ? Vector3.right : Vector3.left;
+            moveTime = Random.Range(1f, getDistance() / speed * Time.deltaTime);
+        } 
+        // min = 1, max = range랑 speed랑 현재 플레이어와의 거리로 고려한 식으로 바꿀거임
     }
     
+    public void movePlace(Vector2 position) {
+        dir = this.transform.position.x > position.x ? Vector3.left : Vector3.right;
+        moveTime = getDistance(transform.position,  position) / (speed * Time.deltaTime);
+        Invoke("whereAnimation", moveTime);
+    }
+
+    void whereAnimation() {
+        // 애니메이션
+    }
     // endregion move sub methods
     
     
     // region getter methods
     public Vector3 getMoveDir() { return dir; }
 
-    Vector2 getRange() { return Vector2.zero; }
-    
+    public bool isClaraHear(Vector2 pos) { return getDistance(pos ,transform.position) <= soundRange; }
+
+    float getDistance(Vector3 a, Vector3 b) { return Math.Abs(a.x - b.x); }
+    float getDistance() { return Math.Abs(GameManager.Clara.transform.position.x - GameManager.Player.transform.position.x); }
+
     // endregion getter methods
     
-    void attack()
-    {
+    void attack() {
         if (!isPlayerInRange()) return;
+        attacking = true;
+        // animation
+        
     }
 
-    bool isPlayerInRange()
-    {
-        
-
-        return false;
+    bool isPlayerInRange() {
+        return getDistance() <= attackRange;
     }
 
 

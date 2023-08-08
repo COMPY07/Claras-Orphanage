@@ -29,7 +29,6 @@ public class PlayerController : MonoBehaviour
         isLive = true;
         isHide = false;
         canHide = false;
-
         isWalk = false;
     }
 
