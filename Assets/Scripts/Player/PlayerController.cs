@@ -46,29 +46,20 @@ public class PlayerController : MonoBehaviour
     {
         if (isLive)
         {
-            Heart();
             //move player
             move(Input.GetAxisRaw("Horizontal"));
             
             //hide player
-            if (canHide && Input.GetKey(KeyCode.S)) {
-                rigid.velocity = new Vector2(0.0f, 0.0f);
-                isHide = true;
-                // hidePanel.SetActive(true);
-                animator.SetBool("isSiting", true);
-            }
-            else
-            {
-                isHide = false; 
-                // hidePanel.SetActive(false);
-                animator.SetBool("isSiting", false);
-            }
+            hide();
 
             //move camera
             if (-5.0f < rigid.position.x && rigid.position.x < 35.0f)
             {
                 mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
+            // HeartBeat
+            HeartBeat();
+
 
         }
     }
@@ -88,10 +79,26 @@ public class PlayerController : MonoBehaviour
             rigid.velocity = new Vector2(xInput * moveSpeed, 0.0f);
         }
     }
-    void Heart()
+
+    void hide()
     {
-        if (audioSoure != null)
+        if (canHide && Input.GetKey(KeyCode.S)) {
+            rigid.velocity = new Vector2(0.0f, 0.0f);
+            isHide = true;
+            // hidePanel.SetActive(true);
+            animator.SetBool("isSiting", true);
+        }
+        else
         {
+            isHide = false; 
+            // hidePanel.SetActive(false);
+            animator.SetBool("isSiting", false);
+        }
+    }
+    
+    void HeartBeat()
+    {
+        if (audioSoure != null) {
             audioSoure.volume = HeartSoundRange / GameManager.getDistance();
         }
     }
