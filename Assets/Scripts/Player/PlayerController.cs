@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         rigid = GetComponent<Rigidbody2D>();
         mainCamera = GameObject.FindWithTag("MainCamera");
-        hidePanel = GameObject.Find("HidePanel");
+        hidePanel = GameObject.FindWithTag("HidePanel");
         animator = GetComponent<Animator>();
     }
 
@@ -53,17 +53,13 @@ public class PlayerController : MonoBehaviour
             hide();
 
             //move camera
-            if (-5.0f < rigid.position.x && rigid.position.x < 35.0f)
-            {
+            if (-5.0f < rigid.position.x && rigid.position.x < 35.0f) {
                 mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
             // HeartBeat
             HeartBeat();
-
-
         }
     }
-
     void move(float xInput) {
         if (xInput != 0)
         {
@@ -85,13 +81,12 @@ public class PlayerController : MonoBehaviour
         if (canHide && Input.GetKey(KeyCode.S)) {
             rigid.velocity = new Vector2(0.0f, 0.0f);
             isHide = true;
-            // hidePanel.SetActive(true);
+            hidePanel.SetActive(true);
             animator.SetBool("isSiting", true);
         }
-        else
-        {
+        else {
             isHide = false; 
-            // hidePanel.SetActive(false);
+            hidePanel.SetActive(false);
             animator.SetBool("isSiting", false);
         }
     }

@@ -39,8 +39,10 @@ public class ClaraMove : MonoBehaviour
     private float moveTime;
 
     
-    [Header("맨 끝")]
-    [SerializeField] private float left, right;
+    [Header("왼쪽 맨 끝")]
+    [SerializeField] private float left;
+    [Header("오른쪽 맨 끝")]
+    [SerializeField] private float right;
 
     private void Start() {
         setup();
@@ -63,13 +65,15 @@ public class ClaraMove : MonoBehaviour
     void move() {
         if (moveTime <= 0) { moveSetup(); }
         moveTime -= Time.deltaTime;
+        
+        
         if ((transform.position + dir * speed * Time.deltaTime).x > right ||
             (transform.position + dir * speed * Time.deltaTime).x < left) dir *= -1;
-        if (dir == Vector3.left)
-        {
-            this.gameObject.transform.localScale = new Vector3(-3, 3, 3);
-        } else { this.gameObject.transform.localScale = new Vector3(3, 3, 3); }
+        
+        if (dir == Vector3.left) this.gameObject.transform.localScale = new Vector3(-2, 2, 3);
+        else this.gameObject.transform.localScale = new Vector3(2, 2, 3);
         this.gameObject.transform.Translate(dir * speed * Time.deltaTime);
+        
     }
     
     // region move sub methods

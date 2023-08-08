@@ -6,6 +6,7 @@ TagManager:
   tags:
   - HideObject
   - Clara
+  - HidePanel
   layers:
   - Default
   - TransparentFX
