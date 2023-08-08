@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -19,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private GameObject mainCamera;
 
     public float HeartSoundRange;
-    AudioSource audioSoure;
+    [SerializeField] private AudioSource audioSoure;
     
 
     void Awake()
