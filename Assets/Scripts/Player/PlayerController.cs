@@ -46,54 +46,59 @@ public class PlayerController : MonoBehaviour
     {
         if (isLive)
         {
-            // Heart()
             //move player
-            float xInput = Input.GetAxisRaw("Horizontal");
-            float xSpeed = xInput * moveSpeed;
-
-            if (xInput != 0)
-            {
-                isWalk = true;
-                transform.localScale = new Vector3(xInput * 3, 3, 0);
-                animator.SetBool("isWalking", true);
-            }
-            else
-            {
-                animator.SetBool("isWalking", false);
-            }
-
-            if (!isHide)
-            {
-                rigid.velocity = new Vector2(xSpeed, 0.0f);
-            }
-
+            move(Input.GetAxisRaw("Horizontal"));
+            
             //hide player
-            if (canHide && Input.GetKey(KeyCode.S)) {
-                rigid.velocity = new Vector2(0.0f, 0.0f);
-                isHide = true;
-                hidePanel.SetActive(true);
-                animator.SetBool("isSiting", true);
-            }
-            else
-            {
-                isHide = false;
-                hidePanel.SetActive(false);
-                animator.SetBool("isSiting", false);
-            }
+            hide();
 
             //move camera
             if (-5.0f < rigid.position.x && rigid.position.x < 35.0f)
             {
                 mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
+            // HeartBeat
+            HeartBeat();
+
 
         }
     }
 
-    void Heart()
-    {
-        if (audioSoure != null)
+    void move(float xInput) {
+        if (xInput != 0)
         {
+            isWalk = true;
+            transform.localScale = new Vector3(xInput * 3, 3, 0);
+            animator.SetBool("isWalking", true);
+        }
+        else
+        {
+            animator.SetBool("isWalking", false);
+        }
+        if (!isHide) {
+            rigid.velocity = new Vector2(xInput * moveSpeed, 0.0f);
+        }
+    }
+
+    void hide()
+    {
+        if (canHide && Input.GetKey(KeyCode.S)) {
+            rigid.velocity = new Vector2(0.0f, 0.0f);
+            isHide = true;
+            // hidePanel.SetActive(true);
+            animator.SetBool("isSiting", true);
+        }
+        else
+        {
+            isHide = false; 
+            // hidePanel.SetActive(false);
+            animator.SetBool("isSiting", false);
+        }
+    }
+    
+    void HeartBeat()
+    {
+        if (audioSoure != null) {
             audioSoure.volume = HeartSoundRange / GameManager.getDistance();
         }
     }
