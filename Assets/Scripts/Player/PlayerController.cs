@@ -58,12 +58,11 @@ public class PlayerController : MonoBehaviour
             else isHide = false;
 
             //move camera
-            if (-5.0f < rigid.position.x && rigid.position.x < 5.0f)
+            if (-5.0f < rigid.position.x && rigid.position.x < 35.0f)
             {
-                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 2.0f, mainCamera.transform.position.z);
+                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
 
-            //
         }
     }
 
@@ -83,4 +82,6 @@ public class PlayerController : MonoBehaviour
         if (collider.tag == "HideObject") canHide = false;
         Debug.Log("can't hide");
     }
+
+
 }
