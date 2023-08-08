@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class ClaraMove : MonoBehaviour
 {
@@ -25,37 +26,56 @@ public class ClaraMove : MonoBehaviour
      *      
      *      
      */
-
-
+    
     [SerializeField] private float speed;
     [SerializeField] private float attackRange;
+    [SerializeField] private float soundRange;
+    
+    private Vector3 dir;
 
-    private void Update()
+    private float moveTime;
+
+    private void Start()
     {
+        dir = Vector3.zero;
+    }
+
+    private void Update() {
         move();
         attack();
         interaction();
     }
 
-
     void move() {
+        if (moveTime <= 0) { moveSetup(); }
+
+        moveTime += Time.deltaTime;
+        this.gameObject.transform.Translate(dir * speed);
         
     }
-
-    Vector2 getMoveDir()
+    
+    // region move sub methods
+    
+    void moveSetup()
     {
-        return Vector2.zero;
+        moveTime = Random.Range(1, 7);
         
     }
 
-    Vector2 getRange()
-    {
-        return Vector2.zero;
+    void movePlace(Vector2 position){
         
     }
+    
+    // endregion move sub methods
+    
+    
+    // region getter methods
+    public Vector3 getMoveDir() { return dir; }
 
-
-
+    Vector2 getRange() { return Vector2.zero; }
+    
+    // endregion getter methods
+    
     void attack()
     {
         if (!isPlayerInRange()) return;
