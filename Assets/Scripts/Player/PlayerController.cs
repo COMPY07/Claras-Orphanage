@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,6 +7,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+
     private Rigidbody2D rigid;
     private Animator animator;
     public float moveSpeed = 5.0f;
@@ -18,6 +20,10 @@ public class PlayerController : MonoBehaviour
 
     private GameObject mainCamera;
     private GameObject hidePanel;
+
+    public float HeartSoundRange;
+    [SerializeField] private AudioSource audioSoure;
+    
 
     void Awake()
     {
@@ -32,14 +38,15 @@ public class PlayerController : MonoBehaviour
         isLive = true;
         isHide = false;
         canHide = false;
-
         isWalk = false;
+        if(audioSoure != null) audioSoure.loop = true;
     }
 
     void Update()
     {
         if (isLive)
         {
+            // Heart()
             //move player
             float xInput = Input.GetAxisRaw("Horizontal");
             float xSpeed = xInput * moveSpeed;
@@ -75,15 +82,21 @@ public class PlayerController : MonoBehaviour
             }
 
             //move camera
-            if (-5.0f < rigid.position.x && rigid.position.x < 5.0f)
+            if (-5.0f < rigid.position.x && rigid.position.x < 35.0f)
             {
-                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 2.0f, mainCamera.transform.position.z);
+                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
 
-            //
         }
     }
 
+    void Heart()
+    {
+        if (audioSoure != null)
+        {
+            audioSoure.volume = HeartSoundRange / GameManager.getDistance();
+        }
+    }
     public void Dead()
     {
         
@@ -100,4 +113,6 @@ public class PlayerController : MonoBehaviour
         if (collider.tag == "HideObject") canHide = false;
         Debug.Log("can't hide");
     }
+
+
 }
