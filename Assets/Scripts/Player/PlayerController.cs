@@ -7,6 +7,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody2D rigid;
+    private Animator animator;
     public float moveSpeed = 5.0f;
 
     [HideInInspector] public bool isLive;
@@ -16,11 +17,14 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isWalk;
 
     private GameObject mainCamera;
+    private GameObject hidePanel;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         mainCamera = GameObject.FindWithTag("MainCamera");
+        hidePanel = GameObject.Find("HidePanel");
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -37,16 +41,22 @@ public class PlayerController : MonoBehaviour
         if (isLive)
         {
             //move player
+            float xInput = Input.GetAxisRaw("Horizontal");
+            float xSpeed = xInput * moveSpeed;
+
+            if (xInput != 0)
+            {
+                isWalk = true;
+                transform.localScale = new Vector3(xInput * 3, 3, 0);
+                animator.SetBool("isWalking", true);
+            }
+            else
+            {
+                animator.SetBool("isWalking", false);
+            }
+
             if (!isHide)
             {
-                float xInput = Input.GetAxisRaw("Horizontal");
-                float xSpeed = xInput * moveSpeed;
-
-                if (xInput != 0) {
-                    isWalk = true;
-                    transform.localScale = new Vector3(xInput * 3, 3, 0);
-                }
-             
                 rigid.velocity = new Vector2(xSpeed, 0.0f);
             }
 
@@ -54,8 +64,15 @@ public class PlayerController : MonoBehaviour
             if (canHide && Input.GetKey(KeyCode.S)) {
                 rigid.velocity = new Vector2(0.0f, 0.0f);
                 isHide = true;
+                hidePanel.SetActive(true);
+                animator.SetBool("isSiting", true);
             }
-            else isHide = false;
+            else
+            {
+                isHide = false;
+                hidePanel.SetActive(false);
+                animator.SetBool("isSiting", false);
+            }
 
             //move camera
             if (-5.0f < rigid.position.x && rigid.position.x < 5.0f)
