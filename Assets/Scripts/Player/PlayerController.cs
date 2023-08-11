@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
                 mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
             // HeartBeat
-            HeartBeat();
+            //HeartBeat();
         }
     }
     void move(float xInput) {
@@ -91,12 +91,12 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    void HeartBeat()
+    /*void HeartBeat()
     {
         if (audioSoure != null) {
             audioSoure.volume = HeartSoundRange / GameManager.getDistance();
         }
-    }
+    }*/
     public void Dead()
     {
         
