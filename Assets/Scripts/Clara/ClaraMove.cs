@@ -88,7 +88,7 @@ public class ClaraMove : MonoBehaviour
             dir = GameManager.Player.transform.position.x - transform.position.x > 0 ? Vector3.right : Vector3.left;
             moveTime = Random.Range(0.5f, getDistance() / speed * Time.deltaTime);
         }
-        Debug.Log(dir+" "+moveTime);
+        // Debug.Log(dir+" "+moveTime);
         
         // min = 1, max = range랑 speed랑 현재 플레이어와의 거리로 고려한 식으로 바꿀거임
     }

@@ -14,8 +14,8 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool isLive;
     [HideInInspector] public bool isHide;
-    private bool canHide;
-
+    private bool canHide, canPickup;
+    private ItemInfo pickUpItem;
     [HideInInspector] public bool isWalk;
 
     private GameObject mainCamera;
@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
 
     public float HeartSoundRange;
     [SerializeField] private AudioSource audioSoure;
+
+    [SerializeField] private Inventory inventory;
     
 
     void Awake()
@@ -42,8 +44,7 @@ public class PlayerController : MonoBehaviour
         if(audioSoure != null) audioSoure.loop = true;
     }
 
-    void Update()
-    {
+    void Update() {
         if (isLive)
         {
             //move player
@@ -58,17 +59,16 @@ public class PlayerController : MonoBehaviour
             }
             // HeartBeat
             //HeartBeat();
+            Pickup();
         }
     }
     void move(float xInput) {
-        if (xInput != 0)
-        {
+        if (xInput != 0) {
             isWalk = true;
             transform.localScale = new Vector3(xInput * 3, 3, 0);
             animator.SetBool("isWalking", true);
         }
-        else
-        {
+        else {
             animator.SetBool("isWalking", false);
         }
         if (!isHide) {
@@ -102,15 +102,31 @@ public class PlayerController : MonoBehaviour
         
     }
 
+    private void Pickup() {
+        if (!canPickup) return;
+        if (Input.GetKey(KeyCode.F)) {
+            Debug.Log("줍기");
+            inventory.Add(pickUpItem);
+        }
+        
+    }
+    
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "HideObject") canHide = true;
+        if (collider.tag == "Item") {
+            canPickup = true;
+            pickUpItem = collider.gameObject.GetComponent<ItemInfo>();
+            if(pickUpItem == null) Debug.LogError("Incorrectly Registered Item");
+        }
         // Debug.Log("can hide");
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.tag == "HideObject") canHide = false;
+        if (collider.tag == "item") canPickup = false;
         // Debug.Log("can't hide");
     }
 
