@@ -81,12 +81,12 @@ public class PlayerController : MonoBehaviour
         if (canHide && Input.GetKey(KeyCode.S)) {
             rigid.velocity = new Vector2(0.0f, 0.0f);
             isHide = true;
-            hidePanel.SetActive(true);
+            // hidePanel.SetActive(true);
             animator.SetBool("isSiting", true);
         }
         else {
             isHide = false; 
-            hidePanel.SetActive(false);
+            // hidePanel.SetActive(false);
             animator.SetBool("isSiting", false);
         }
     }
@@ -105,13 +105,13 @@ public class PlayerController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "HideObject") canHide = true;
-        Debug.Log("can hide");
+        // Debug.Log("can hide");
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.tag == "HideObject") canHide = false;
-        Debug.Log("can't hide");
+        // Debug.Log("can't hide");
     }
 
 

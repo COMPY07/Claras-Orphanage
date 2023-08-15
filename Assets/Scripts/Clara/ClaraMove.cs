@@ -79,10 +79,14 @@ public class ClaraMove : MonoBehaviour
     // region move sub methods
     
     void moveSetup() {
-        if (getDistance() - moveRange < 0) { moveTime = Random.Range(1f, 3f); }
+        if (getDistance() - moveRange < 0)
+        {
+            dir = Random.Range(0, 2) == 0 ? Vector3.left : Vector3.right;
+            moveTime = Random.Range(1f, 1.8f);
+        }
         else {
             dir = GameManager.Player.transform.position.x - transform.position.x > 0 ? Vector3.right : Vector3.left;
-            moveTime = Random.Range(1f, getDistance() / speed * Time.deltaTime);
+            moveTime = Random.Range(0.5f, getDistance() / speed * Time.deltaTime);
         }
         Debug.Log(dir+" "+moveTime);
         

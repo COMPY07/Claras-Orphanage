@@ -13,4 +13,9 @@ public class GameManager : MonoBehaviour
         Clara = GameObject.FindGameObjectWithTag("Clara");
     }
     public static float getDistance() { return Math.Abs(Clara.transform.position.x - Player.transform.position.x); }
+
+    public static float getDistance(Vector3 a, Vector3 b) {
+        return Math.Abs(a.x - b.x);
+    }
+
 }
