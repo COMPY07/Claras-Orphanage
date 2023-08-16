@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class Paper : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private string detail;
+
+    public string GetName()
     {
-        
+        return detail;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

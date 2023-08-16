@@ -14,7 +14,10 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public bool isLive;
     [HideInInspector] public bool isHide;
-    private bool canHide, canPickup;
+    private bool canHide, canPickup, canUseStair;
+
+    private Stair stair;
+    
     private ItemInfo pickUpItem;
     [HideInInspector] public bool isWalk;
 
@@ -55,25 +58,30 @@ public class PlayerController : MonoBehaviour
 
             //move camera
             if (-5.0f < rigid.position.x && rigid.position.x < 35.0f) {
-                mainCamera.transform.position = new Vector3(rigid.position.x, rigid.position.y + 3.0f, mainCamera.transform.position.z);
+                mainCamera.transform.position = new Vector3(rigid.position.x,
+                    rigid.position.y + 3.0f, mainCamera.transform.position.z);
             }
             // HeartBeat
             //HeartBeat();
             Pickup();
+            UseStair();
         }
     }
+
+    void UseStair() {
+        if (canUseStair && Input.GetKey(KeyCode.F)) {
+            this.gameObject.transform.position = stair.GetNext();
+        }
+    }
+    
     void move(float xInput) {
         if (xInput != 0) {
             isWalk = true;
             transform.localScale = new Vector3(xInput * 3, 3, 0);
             animator.SetBool("isWalking", true);
         }
-        else {
-            animator.SetBool("isWalking", false);
-        }
-        if (!isHide) {
-            rigid.velocity = new Vector2(xInput * moveSpeed, 0.0f);
-        }
+        else { animator.SetBool("isWalking", false); }
+        if (!isHide) { rigid.velocity = new Vector2(xInput * moveSpeed, rigid.velocity.y); }
     }
 
     void hide()
@@ -105,7 +113,7 @@ public class PlayerController : MonoBehaviour
     private void Pickup() {
         if (!canPickup) return;
         if (Input.GetKey(KeyCode.F)) {
-            Debug.Log("줍기");
+            // Debug.Log("줍기");
             inventory.Add(pickUpItem);
         }
         
@@ -120,13 +128,18 @@ public class PlayerController : MonoBehaviour
             pickUpItem = collider.gameObject.GetComponent<ItemInfo>();
             if(pickUpItem == null) Debug.LogError("Incorrectly Registered Item");
         }
+
+        if (collider.tag == "Stair") {
+            canUseStair = true;
+            stair = collider.gameObject.GetComponent<Stair>();
+        }
         // Debug.Log("can hide");
     }
 
-    void OnTriggerExit2D(Collider2D collider)
-    {
+    void OnTriggerExit2D(Collider2D collider) {
         if (collider.tag == "HideObject") canHide = false;
         if (collider.tag == "item") canPickup = false;
+        if (collider.tag == "Stair") canUseStair = false;
         // Debug.Log("can't hide");
     }
 

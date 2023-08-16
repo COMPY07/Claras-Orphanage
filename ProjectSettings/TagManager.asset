@@ -8,6 +8,7 @@ TagManager:
   - Clara
   - HidePanel
   - Item
+  - Stair
   layers:
   - Default
   - TransparentFX
