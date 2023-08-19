@@ -126,7 +126,9 @@ public class PlayerController : MonoBehaviour
         if (collider.tag == "Item") {
             canPickup = true;
             pickUpItem = collider.gameObject.GetComponent<ItemInfo>();
+            
             if(pickUpItem == null) Debug.LogError("Incorrectly Registered Item");
+            pickUpItem.Use();
         }
 
         if (collider.tag == "Stair") {
