@@ -15,7 +15,6 @@ public class Paper : ItemInfo
     public string GetName() { return detail; }
     public override void Use() {
         window.SetActive(true);
-        
         window.transform.GetChild(1).GetComponent<TMP_Text>().SetText(detail);
     }
     

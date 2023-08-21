@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interaction : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
+public class Interaction {
+    public static void UseStair() {
         
+    }
+    
+    public static void UseItem(){
+    
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

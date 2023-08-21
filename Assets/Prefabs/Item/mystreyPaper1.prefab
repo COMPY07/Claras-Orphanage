@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1026478855590569744}
   - component: {fileID: 8923002054130347317}
   - component: {fileID: 3719713597482922877}
+  - component: {fileID: 7942299930536588539}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -111,6 +112,26 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.9, y: 6.03}
   m_EdgeRadius: 0
+--- !u!114 &7942299930536588539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259252877167204745}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b95e8b07b213934a9c25e4f6270c584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: "\uC218\uC0C1\uD55C \uCABD\uC9C0 1"
+  id: 2
+  description: "\uB204\uAD70\uC9C0 \uBAA8\uB97C \uC0AC\uB78C\uC774 \uC4F4 \uCABD\uC9C0\uC778
+    \uAC83 \uAC19\uB2E4."
+  type: 1
+  image: {fileID: 0}
+  detail: d
+  window: {fileID: 0}
 --- !u!1 &8737969312542240109
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +141,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2696550923190704467}
-  - component: {fileID: 2888713549268339900}
   m_Layer: 0
   m_Name: mystreyPaper1
   m_TagString: Untagged
@@ -144,23 +164,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2888713549268339900
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8737969312542240109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b95e8b07b213934a9c25e4f6270c584, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  name: "\uC218\uC0C1\uD55C \uCABD\uC9C0 1"
-  id: 2
-  description: "\uB204\uAD70\uC9C0 \uBAA8\uB97C \uC0AC\uB78C\uC774 \uC4F4 \uCABD\uC9C0\uC778
-    \uAC83 \uAC19\uB2E4."
-  type: 1
-  image: {fileID: 0}
-  detail: d
-  window: {fileID: 0}

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,9 +31,7 @@ public class Slot : MonoBehaviour {
         // 1 puzzle
         // 2 ..
         // 3 ...
-        if (item.GetType() == 1) {
-            
-        }
+        item.Use();
     }
     
     

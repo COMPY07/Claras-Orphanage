@@ -68,11 +68,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void UseStair() {
-        if (canUseStair && Input.GetKey(KeyCode.F)) {
-            this.gameObject.transform.position = stair.GetNext();
-        }
-    }
+    
     
     void move(float xInput) {
         if (xInput != 0) {
@@ -115,33 +111,48 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.F)) {
             // Debug.Log("줍기");
             inventory.Add(pickUpItem);
+            // pickUpItem.Use();
         }
         
+    }
+    void UseStair() {
+        if (canUseStair && Input.GetKey(KeyCode.F)) {
+            this.gameObject.transform.position = stair.GetNext();
+        }
     }
     
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "HideObject") canHide = true;
-        if (collider.tag == "Item") {
-            canPickup = true;
-            pickUpItem = collider.gameObject.GetComponent<ItemInfo>();
-            
-            if(pickUpItem == null) Debug.LogError("Incorrectly Registered Item");
-            pickUpItem.Use();
+        switch (collider.tag) {
+            case "HideObject": 
+                canHide = true;
+                break;
+            case "Item": 
+                canPickup = true;
+                pickUpItem = collider.gameObject.GetComponent<ItemInfo>();
+                if(pickUpItem == null) Debug.LogError("Incorrectly Registered Item");
+                break;
+            case "Stair":
+                canUseStair = true;
+                stair = collider.gameObject.GetComponent<Stair>();
+                break;
         }
-
-        if (collider.tag == "Stair") {
-            canUseStair = true;
-            stair = collider.gameObject.GetComponent<Stair>();
-        }
-        // Debug.Log("can hide");
     }
 
     void OnTriggerExit2D(Collider2D collider) {
-        if (collider.tag == "HideObject") canHide = false;
-        if (collider.tag == "item") canPickup = false;
-        if (collider.tag == "Stair") canUseStair = false;
+        switch (collider.tag) {
+            case "HideObject": 
+                canHide = false;
+                break;
+            case "Item": 
+                canPickup = false;
+                break;
+            case "Stair":
+                canUseStair = false;
+                break;
+        }
+
         // Debug.Log("can't hide");
     }
 

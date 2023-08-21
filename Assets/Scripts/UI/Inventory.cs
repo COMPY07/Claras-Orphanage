@@ -43,9 +43,6 @@ public class Inventory : MonoBehaviour
             break;
         }
 
-        for (int i = 0; i < countOfSlot; i++) {
-            Debug.Log(slots[i].gameObject.name);
-        }
         showInventory = false;
         inventory.SetActive(showInventory);
     }
