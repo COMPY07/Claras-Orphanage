@@ -7,24 +7,33 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
+    
+    [Header("Player 움직")]
     private Rigidbody2D rigid;
     private Animator animator;
     public float moveSpeed = 5.0f;
 
-    [HideInInspector] public bool isLive;
-    [HideInInspector] public bool isHide;
-    private bool canHide, canPickup, canUseStair;
+    [Header("Player 상태")]
+    // [HideInInspector] public bool isLive;
+    // [HideInInspector] public bool isHide;
+    public bool isLive;
+    public bool isHide;
+    private bool canHide, canPickup, canUseStair, canUseDoor;
 
+    [Header("현재 사용할 때 타고갈 객체")]
     private Stair stair;
-    
     private ItemInfo pickUpItem;
+    private Door door;
+    
+    [Header("그 외")]
     [HideInInspector] public bool isWalk;
 
     private GameObject mainCamera;
     private GameObject hidePanel;
 
-    public float HeartSoundRange;
+    // public float HeartSoundRange;
+    
+    
     [SerializeField] private AudioSource audioSoure;
 
     [SerializeField] private Inventory inventory;
@@ -65,6 +74,7 @@ public class PlayerController : MonoBehaviour
             //HeartBeat();
             Pickup();
             UseStair();
+            UseDoor();
         }
     }
 
@@ -95,14 +105,7 @@ public class PlayerController : MonoBehaviour
         }
     }
     
-    /*void HeartBeat()
-    {
-        if (audioSoure != null) {
-            audioSoure.volume = HeartSoundRange / GameManager.getDistance();
-        }
-    }*/
-    public void Dead()
-    {
+    public void Dead() {
         
     }
 
@@ -115,13 +118,18 @@ public class PlayerController : MonoBehaviour
         }
         
     }
-    void UseStair() {
-        if (canUseStair && Input.GetKey(KeyCode.F)) {
-            this.gameObject.transform.position = stair.GetNext();
-        }
-    }
-    
+ 
 
+    // region UseMethods
+    void UseStair() { if (canUseStair && Input.GetKey(KeyCode.F)) { this.gameObject.transform.position = stair.GetNext(); } }
+    void UseDoor() { if (Input.GetKey(KeyCode.F) && canUseDoor) { this.gameObject.transform.position = door.Use(); } }
+    // endregion UseMethods
+    
+    
+    
+    
+    
+    // region TriggerMethods
     void OnTriggerEnter2D(Collider2D collider)
     {
         switch (collider.tag) {
@@ -137,6 +145,10 @@ public class PlayerController : MonoBehaviour
                 canUseStair = true;
                 stair = collider.gameObject.GetComponent<Stair>();
                 break;
+            case "Door":
+                canUseDoor = true;
+                door = collider.gameObject.GetComponent<Door>();
+                break;
         }
     }
 
@@ -151,10 +163,15 @@ public class PlayerController : MonoBehaviour
             case "Stair":
                 canUseStair = false;
                 break;
+            case "Door":
+                canUseDoor = false;
+                break;
         }
 
         // Debug.Log("can't hide");
     }
+    
+    // endregion TriggerMethods
 
 
 }

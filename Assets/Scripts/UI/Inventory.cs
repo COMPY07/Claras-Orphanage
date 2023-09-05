@@ -53,7 +53,8 @@ public class Inventory : MonoBehaviour
         slots[0].SetItem(item);
         amount++;
         item.gameObject.SetActive(false); // destroy
-        
+        Reconstruction(0);
+
     }
 
     private ItemInfo Reconstruction(int idx) {
