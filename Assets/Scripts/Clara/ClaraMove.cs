@@ -63,17 +63,25 @@ public class ClaraMove : MonoBehaviour
     }
 
     void move() {
-        if (moveTime <= 0) { moveSetup(); }
-        moveTime -= Time.deltaTime;
-        
-        
-        if ((transform.position + dir * speed * Time.deltaTime).x > right ||
-            (transform.position + dir * speed * Time.deltaTime).x < left) dir *= -1;
-        
+        if (getDistance() < 5.5f && !GameManager.Player.GetComponent<PlayerController>().isHide)
+        {
+            if ((transform.position - GameManager.Player.transform.position).x > 0) dir = Vector3.left;
+            else dir = Vector3.right;
+        }
+        else
+        {
+            if (moveTime <= 0) { moveSetup(); }
+
+            moveTime -= Time.deltaTime;
+            if ((transform.position + dir * speed * Time.deltaTime).x > right ||
+                (transform.position + dir * speed * Time.deltaTime).x < left) dir *= -1;
+
+            
+        }
         if (dir == Vector3.left) this.gameObject.transform.localScale = new Vector3(-2, 2, 3);
         else this.gameObject.transform.localScale = new Vector3(2, 2, 3);
         this.gameObject.transform.Translate(dir * speed * Time.deltaTime);
-        
+
     }
     
     // region move sub methods

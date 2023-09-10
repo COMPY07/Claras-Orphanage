@@ -50,22 +50,39 @@ public class Inventory : MonoBehaviour
 
     public void Add(ItemInfo item) {
         if (countOfSlot <= amount) return;
-        slots[0].SetItem(item);
+        slots[amount].SetItem(item);
         amount++;
         item.gameObject.SetActive(false); // destroy
-        Reconstruction(0);
+        Reconstruction();
 
     }
 
-    private ItemInfo Reconstruction(int idx) {
-        if (idx >= countOfSlot) return null;
-        if (slots[idx] == null) slots[idx].SetItem(Reconstruction(idx++));
-        else {
-            ItemInfo info = slots[idx].GetItem();
-            slots[idx].SetItem(new ItemInfo());
-            return info;
+    private void Reconstruction() {
+        for (int i = 0; i < countOfSlot; i++)
+        {
+            if(slots[countOfSlot - i - 1].GetItem() is null) continue;
+            for (int j = i; j < countOfSlot; j++) {
+                if(!(slots[j] is null)) continue;
+                slots[j].SetItem(slots[countOfSlot - i].GetItem());
+                slots[countOfSlot - i - 1].SetItem(null);
+            }
         }
-        return Reconstruction(idx++);
+        
+    }
+
+    public void Remove(ItemInfo item) {
+        for (int i = 0; i < countOfSlot; i++) {
+            if (slots[i].GetItem() != item) continue;
+            slots[i].SetItem(null);
+            break;
+        }
+        Reconstruction();
+    }
+
+    public void Remove(int idx)
+    {
+        slots[idx].SetItem(null);
+        Reconstruction();
     }
 
     public void Use(string name) {
@@ -74,9 +91,6 @@ public class Inventory : MonoBehaviour
 
     public void Use(int id) {
         if (id == -1) return;
-        
-        
-        
     }
 
     private int GetId(string name) {

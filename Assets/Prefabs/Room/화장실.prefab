@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 3087842068633741135}
   - component: {fileID: 4676672002979232831}
   - component: {fileID: 8784768527679755739}
-  - component: {fileID: 1972236067335344184}
+  - component: {fileID: 6925415722313329178}
   m_Layer: 0
   m_Name: Firstdoor
   m_TagString: Door
@@ -185,7 +185,7 @@ MonoBehaviour:
   nextRoomID: -2
   nextDoorID: 0
   id: 0
---- !u!61 &1972236067335344184
+--- !u!61 &6925415722313329178
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 1635506715534446711}
   - component: {fileID: 3083868389134283610}
   m_Layer: 0
-  m_Name: "\uB180\uC774\uD130"
+  m_Name: "\uD654\uC7A5\uC2E4"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -260,8 +260,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: NULL
   id: 0
-  BGImgRenderer: {fileID: 7186676024061221847}
-  BGImg: {fileID: 21300000, guid: cb5991ab9a517db48bebd056df36068d, type: 3}
+  BGImgRenderer: {fileID: 0}
+  BGImg: {fileID: 0}
   connetedDoor: {fileID: 0}
 --- !u!1 &4374575558261484397
 GameObject:
@@ -424,7 +424,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1097468014343501505}
   - component: {fileID: 5319839062892917251}
-  - component: {fileID: 146202645587039914}
+  - component: {fileID: 8017774183450809774}
   m_Layer: 0
   m_Name: left
   m_TagString: Untagged
@@ -499,7 +499,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &146202645587039914
+--- !u!61 &8017774183450809774
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -535,7 +535,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4448935457361594146}
   - component: {fileID: 4060862823269351235}
-  - component: {fileID: 5693022592959790466}
+  - component: {fileID: 1113783590441930148}
   m_Layer: 0
   m_Name: ground
   m_TagString: Untagged
@@ -610,7 +610,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &5693022592959790466
+--- !u!61 &1113783590441930148
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -646,7 +646,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3658750309062119388}
   - component: {fileID: 4119142024736723151}
-  - component: {fileID: 3615772338668396730}
+  - component: {fileID: 1281268621302681963}
   m_Layer: 0
   m_Name: right
   m_TagString: Untagged
@@ -721,7 +721,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &3615772338668396730
+--- !u!61 &1281268621302681963
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

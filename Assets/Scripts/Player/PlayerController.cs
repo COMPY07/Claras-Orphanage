@@ -66,10 +66,7 @@ public class PlayerController : MonoBehaviour
             hide();
 
             //move camera
-            if (-5.0f < rigid.position.x && rigid.position.x < 35.0f) {
-                mainCamera.transform.position = new Vector3(rigid.position.x,
-                    rigid.position.y + 3.0f, mainCamera.transform.position.z);
-            }
+            MoveCamera();
             // HeartBeat
             //HeartBeat();
             Pickup();
@@ -78,7 +75,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    
+    void MoveCamera() {
+        if (-5.0f < rigid.position.x && rigid.position.x < 35.0f) {
+            mainCamera.transform.position = new Vector3(rigid.position.x,
+                rigid.position.y + 3.0f, mainCamera.transform.position.z);
+        }else if (GameManager.RoomManager.GetCurrentRoom() != null) {
+            if (GameManager.RoomManager.GetRoomsPos().x - 15 < rigid.position.x &&
+                GameManager.RoomManager.GetRoomsPos().x + 15 > rigid.position.x) {
+                mainCamera.transform.position = new Vector3(rigid.position.x,
+                    rigid.position.y + 3.0f, mainCamera.transform.position.z);
+            }
+        }
+    }
     
     void move(float xInput) {
         if (xInput != 0) {
@@ -103,15 +111,18 @@ public class PlayerController : MonoBehaviour
             // hidePanel.SetActive(false);
             animator.SetBool("isSiting", false);
         }
+
+        this.gameObject.transform.GetComponent<SpriteRenderer>().enabled = !isHide;
     }
     
     public void Dead() {
+        isLive = false;
         
     }
 
     private void Pickup() {
         if (!canPickup) return;
-        if (Input.GetKey(KeyCode.F)) {
+        if (Input.GetKeyDown(KeyCode.F)) {
             // Debug.Log("줍기");
             inventory.Add(pickUpItem);
             // pickUpItem.Use();
@@ -121,8 +132,8 @@ public class PlayerController : MonoBehaviour
  
 
     // region UseMethods
-    void UseStair() { if (canUseStair && Input.GetKey(KeyCode.F)) { this.gameObject.transform.position = stair.GetNext(); } }
-    void UseDoor() { if (Input.GetKey(KeyCode.F) && canUseDoor) { this.gameObject.transform.position = door.Use(); } }
+    void UseStair() { if (canUseStair && Input.GetKeyDown(KeyCode.F)) { this.gameObject.transform.position = stair.GetNext(); } }
+    void UseDoor() { if (Input.GetKeyDown(KeyCode.F) && canUseDoor) { this.gameObject.transform.position = door.Use(); } }
     // endregion UseMethods
     
     
@@ -148,6 +159,9 @@ public class PlayerController : MonoBehaviour
             case "Door":
                 canUseDoor = true;
                 door = collider.gameObject.GetComponent<Door>();
+                break;
+            case "Clara":
+                if(!isHide) Dead();
                 break;
         }
     }

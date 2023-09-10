@@ -9,6 +9,9 @@ TagManager:
   - HidePanel
   - Item
   - Stair
+  - RoomManager
+  - Door
+  - Main
   layers:
   - Default
   - TransparentFX
