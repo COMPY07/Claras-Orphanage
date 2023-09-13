@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7942299930536588539}
   m_Layer: 0
   m_Name: Square
-  m_TagString: Untagged
+  m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -130,7 +130,13 @@ MonoBehaviour:
     \uAC83 \uAC19\uB2E4."
   type: 1
   image: {fileID: 0}
-  detail: d
+  detail: "\uC6B0\uB9AC \uACE0\uC544\uC6D0\uC5D0 \uC0C8\uB85C\uC6B4 \uCE5C\uAD6C\uAC00
+    \uC654\uB2E4. \uC9D1\uC5D0 \uD654\uC7AC\uAC00 \uB098\uC11C \uBD80\uBAA8\uB2D8\uC774
+    \uB3CC\uC544\uAC00\uC2DC\uACE0 \uC774\uACF3\uC5D0 \uC654\uB2E4\uACE0 \uD55C\uB2E4.
+    \uBAA8\uB450 \uD568\uAED8 \uC0C8 \uCE5C\uAD6C\uC640 \uC7AC\uBBF8\uC788\uAC8C
+    \uB180\uC558\uB2E4. \uD2B9\uD788 \uAC19\uC774 \uBBF8\uB044\uB7FC\uD2C0\uC744
+    \uD0C0\uB294\uAC8C \uC990\uAC70\uC6E0\uB2E4. \uB2E4\uC74C\uC5D0\uB3C4 \uAC19\uC774
+    \uB180\uC544\uC57C\uACA0\uB2E4. 1982\uB144 8\uC6D4 21\uC77C"
   window: {fileID: 0}
 --- !u!1 &8737969312542240109
 GameObject:
@@ -142,7 +148,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2696550923190704467}
   m_Layer: 0
-  m_Name: mystreyPaper1
+  m_Name: story1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
