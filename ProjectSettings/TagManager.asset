@@ -12,6 +12,7 @@ TagManager:
   - RoomManager
   - Door
   - Main
+  - endBox
   layers:
   - Default
   - TransparentFX
