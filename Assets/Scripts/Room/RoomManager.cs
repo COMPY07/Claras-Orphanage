@@ -1,5 +1,6 @@
 
 using System;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
@@ -18,31 +19,33 @@ public class RoomManager : MonoBehaviour
 
     private Vector3 roomPosition;
     
-    private void Awake() {
-        
-        Door[] myDoors = new Door[GameObject.FindGameObjectsWithTag("Door").Length];
+    
+    private void Awake()
+    {
+        GameObject[] theDoors = GameObject.FindGameObjectsWithTag("Door"); 
+        doors = new Door[theDoors.Length+ 50];
         int idx = 0;
-        foreach(GameObject door in GameObject.FindGameObjectsWithTag("Door")) {
+
+        foreach(GameObject door in theDoors) {
             Door comDoor = door.GetComponent<Door>();
-            if(myDoors[comDoor.GetId()] != null) Debug.LogWarning("문의 아이디가 겹칩니다.(문제 : "+comDoor.GetId()+")");
-            myDoors[comDoor.GetId()] = comDoor;
+            if(doors[comDoor.GetId()] != null) Debug.LogWarning("문의 아이디가 겹칩니다.(문제 : "+comDoor.GetId()+")");
+            doors[comDoor.GetId()] = comDoor;
+            // Debug.Log(comDoor.name);
         }
-        doors = myDoors;
-        roomsObject = GameObject.Find("Rooms").gameObject;
-        if (roomsObject == null) {
-            Debug.LogError("RoomManager Load Error");
-        }
+        
+        
+        roomsObject = GameObject.FindWithTag("RoomManager").gameObject;
+        if (roomsObject == null) { Debug.LogError("RoomManager Load Error"); }
 
         roomPosition = roomsObject.transform.position; 
 
         roomLimit = roomsObject.transform.childCount;
+        Debug.Log("length "+roomLimit);
         rooms = new Room[roomLimit];
         for (int i = 0; i < roomLimit; i++)
         {
             rooms[i] = roomsObject.transform.GetChild(i).GetComponent<Room>();
-            if (rooms[i] == null) {
-                Debug.LogError("RoomManager getChild Error");
-            }
+            if (rooms[i] == null) { Debug.LogError("RoomManager getChild Error"); }
             
             rooms[i].gameObject.SetActive(false);
 
@@ -85,13 +88,14 @@ public class RoomManager : MonoBehaviour
         return pos;
     }
 
-    private void RoomUpdate() {
-        
+
+    private void RoomUpdate()
+    {
         currentRoom.gameObject.SetActive(!currentRoom.gameObject.activeSelf);
     }
-    
-    
-    
+
+
+
     // region getter
     public Room GetCurrentRoom() {
         return currentRoom;

@@ -18,9 +18,8 @@ public class Room : MonoBehaviour
     [SerializeField] private Sprite BGImg;
 
 
-    private Vector3 enterPos;
+    [SerializeField] private Vector3 enterPos;
 
-    [SerializeField] private Door connetedDoor;
     
     private void Start() {
         if (name == null || id == null || BGImg == null) {
@@ -38,7 +37,7 @@ public class Room : MonoBehaviour
         BGImgRenderer.gameObject.transform.localScale = new Vector3(2.3f, 2.5f, 1);
 
 
-        enterPos = new Vector3(-10, -2.5f, 0);
+        // enterPos = new Vector3(-10, -2.5f, 0);
     }
 
     public Vector3 getEnterPos()

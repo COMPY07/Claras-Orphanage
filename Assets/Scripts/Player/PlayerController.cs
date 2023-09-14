@@ -36,8 +36,10 @@ public class PlayerController : MonoBehaviour
     
     [SerializeField] private AudioSource audioSoure;
 
-    [SerializeField] private Inventory inventory;
-    
+    [SerializeField] public  Inventory inventory;
+
+
+    [SerializeField] public bool isRoom;
 
     void Awake()
     {
@@ -50,6 +52,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         isLive = true;
+        isRoom = false;
+
         isHide = false;
         canHide = false;
         isWalk = false;
@@ -76,7 +80,7 @@ public class PlayerController : MonoBehaviour
     }
 
     void MoveCamera() {
-        if (-5.0f < rigid.position.x && rigid.position.x < 35.0f) {
+        if (5.0f < rigid.position.x && rigid.position.x < 115.0f) {
             mainCamera.transform.position = new Vector3(rigid.position.x,
                 rigid.position.y + 3.0f, mainCamera.transform.position.z);
         }else if (GameManager.RoomManager.GetCurrentRoom() != null) {
@@ -133,7 +137,21 @@ public class PlayerController : MonoBehaviour
 
     // region UseMethods
     void UseStair() { if (canUseStair && Input.GetKeyDown(KeyCode.F)) { this.gameObject.transform.position = stair.GetNext(); } }
-    void UseDoor() { if (Input.GetKeyDown(KeyCode.F) && canUseDoor) { this.gameObject.transform.position = door.Use(); } }
+
+    void UseDoor()
+    {
+        if (Input.GetKeyDown(KeyCode.F) && canUseDoor)
+        {
+            Vector3 a = door.Use();
+            if (!a.Equals(Vector3.zero))
+            {
+                this.gameObject.transform.position = a;
+            
+
+                isRoom = !isRoom;
+            }
+        }
+    }
     // endregion UseMethods
     
     
@@ -151,7 +169,7 @@ public class PlayerController : MonoBehaviour
                 canPickup = true;
                 pickUpItem = collider.gameObject.GetComponent<ItemInfo>();
                 if(pickUpItem == null) Debug.LogError("Incorrectly Registered Item");
-                break;
+                break; 
             case "Stair":
                 canUseStair = true;
                 stair = collider.gameObject.GetComponent<Stair>();
@@ -159,6 +177,7 @@ public class PlayerController : MonoBehaviour
             case "Door":
                 canUseDoor = true;
                 door = collider.gameObject.GetComponent<Door>();
+                
                 break;
             case "Clara":
                 if(!isHide) Dead();

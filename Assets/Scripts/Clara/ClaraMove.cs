@@ -63,8 +63,11 @@ public class ClaraMove : MonoBehaviour
     }
 
     void move() {
-        if (getDistance() < 5.5f && !GameManager.Player.GetComponent<PlayerController>().isHide)
+        if (!GameManager.Player.GetComponent<PlayerController>().isRoom &&
+            getDistance() < 5.5f &&
+            !GameManager.Player.GetComponent<PlayerController>().isHide)
         {
+            Debug.Log(GameManager.Player.GetComponent<PlayerController>().isRoom);
             if ((transform.position - GameManager.Player.transform.position).x > 0) dir = Vector3.left;
             else dir = Vector3.right;
         }

@@ -25,6 +25,11 @@ public class ItemInfo : MonoBehaviour
         Destroy(this.gameObject);
     }
 
+    public string Getdescription()
+    {
+        return description;
+    }
+
     public virtual void Use() {
         
         

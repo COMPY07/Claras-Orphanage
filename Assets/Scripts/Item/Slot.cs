@@ -17,7 +17,8 @@ public class Slot : MonoBehaviour {
 
     public void SetItem(ItemInfo item) {
         this.item = item;
-        image.sprite = item.GetImage();
+        
+        image.sprite = this.item == null ? null : item.GetImage();
     }
 
     public ItemInfo GetItem() {

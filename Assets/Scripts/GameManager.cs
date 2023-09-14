@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour {
     public static RoomManager RoomManager;
     public static SoundManager SoundManager;
     
+
+    public static bool[] levels;
+    
     
     [SerializeField] private GameObject PaperTab;
 
@@ -18,7 +21,7 @@ public class GameManager : MonoBehaviour {
         Player = GameObject.FindWithTag("Player");
         Clara = GameObject.FindGameObjectWithTag("Clara");
         RoomManager = GameObject.FindWithTag("RoomManager").GetComponent<RoomManager>();
-
+        levels = new bool[3] {false, false, false } ;
 
     }
     public static float getDistance() { return Math.Abs(Clara.transform.position.x - Player.transform.position.x); }
@@ -29,6 +32,16 @@ public class GameManager : MonoBehaviour {
 
     public void PaperWindowBackClick() {
         PaperTab.SetActive(false);
+    }
+
+    public static bool GetLevel(int idx)
+    {
+        return levels[idx];
+    }
+
+    public static void SetLevel(int idx)
+    {
+        levels[idx] = true;
     }
 
 }

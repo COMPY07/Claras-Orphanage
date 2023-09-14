@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,8 @@ public class Inventory : MonoBehaviour
     // public ItemInfo[] items;
     public Slot[] slots;
     private int amount;
+
+    [SerializeField] private TMP_Text des;
 
     void Start()
     {
@@ -53,7 +57,6 @@ public class Inventory : MonoBehaviour
         slots[amount].SetItem(item);
         amount++;
         item.gameObject.SetActive(false); // destroy
-        Reconstruction();
 
     }
 
@@ -119,4 +122,35 @@ public class Inventory : MonoBehaviour
             inventory.SetActive(showInventory);
         }
     }
+
+    
+    
+    public void Event1()
+    {
+        DescriptionUpdate(0);
+    }
+    public void Event2() {
+        DescriptionUpdate(1);
+    }
+    public void Event3() {
+        DescriptionUpdate(2);
+    }
+    public void Event4() {
+        DescriptionUpdate(3);
+    }
+    public void Event5() {
+        DescriptionUpdate(4);
+    }
+    public void Event6() {
+        DescriptionUpdate(5);
+    }
+
+    private void DescriptionUpdate(int idx)
+    {
+        if (slots[idx].GetItem() == null) des.text = "";
+        else {
+            des.text = slots[idx].GetItem().Getdescription();
+        }
+    }
+    
 }
