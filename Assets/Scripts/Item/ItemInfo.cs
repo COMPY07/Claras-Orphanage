@@ -14,6 +14,10 @@ public class ItemInfo : MonoBehaviour
     [SerializeField] protected Sprite image;
     protected GameObject item;
 
+    private void Start()
+    {
+        image = this.gameObject.transform.GetComponent<SpriteRenderer>().sprite;
+    }
 
     public int GetType() { return type; }
 

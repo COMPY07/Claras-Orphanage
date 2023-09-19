@@ -33,8 +33,7 @@ public class Dial : MonoBehaviour
     }
 
     public void Close() {
-        for (int i = 0; i < this.gameObject.transform.childCount; i++)
-        {
+        for (int i = 0; i < this.gameObject.transform.childCount; i++){
             this.gameObject.transform.GetChild(i).gameObject.SetActive(false);
         }
     }

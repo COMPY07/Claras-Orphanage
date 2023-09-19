@@ -29,12 +29,17 @@ public class Room : MonoBehaviour
             BGImg = null;
         }
 
+
+        if (BGImgRenderer == null)
+        {
+            this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        }
         name = this.gameObject.name;
 
-        BGImgRenderer = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        // BGImgRenderer = this.transform.GetChild(0).GetComponent<SpriteRenderer>();
         BGImgRenderer.sprite = BGImg;
         BGImgRenderer.color = Color.white;
-        BGImgRenderer.gameObject.transform.localScale = new Vector3(2.3f, 2.5f, 1);
+        BGImgRenderer.gameObject.transform.localScale = new Vector3(3.2f, 4.0f, 1);
 
 
         // enterPos = new Vector3(-10, -2.5f, 0);

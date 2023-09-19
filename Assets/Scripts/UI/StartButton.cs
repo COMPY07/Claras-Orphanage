@@ -7,7 +7,7 @@ public class StartButton : MonoBehaviour
 {
     public void moveSampleScene()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("copyScene");
     }
  
 }

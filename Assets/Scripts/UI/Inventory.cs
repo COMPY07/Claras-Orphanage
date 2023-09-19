@@ -13,9 +13,11 @@ public class Inventory : MonoBehaviour
 
     [SerializeField] private int countOfSlot;
 
+    [SerializeField] private Image preViewImage;
+
     // public ItemInfo[] items;
     public Slot[] slots;
-    private int amount;
+    public int amount;
 
     [SerializeField] private TMP_Text des;
 
@@ -54,8 +56,7 @@ public class Inventory : MonoBehaviour
 
     public void Add(ItemInfo item) {
         if (countOfSlot <= amount) return;
-        slots[amount].SetItem(item);
-        amount++;
+        slots[amount++].SetItem(item);
         item.gameObject.SetActive(false); // destroy
 
     }
@@ -63,13 +64,26 @@ public class Inventory : MonoBehaviour
     private void Reconstruction() {
         for (int i = 0; i < countOfSlot; i++)
         {
-            if(slots[countOfSlot - i - 1].GetItem() is null) continue;
-            for (int j = i; j < countOfSlot; j++) {
-                if(!(slots[j] is null)) continue;
-                slots[j].SetItem(slots[countOfSlot - i].GetItem());
-                slots[countOfSlot - i - 1].SetItem(null);
+            // if(slots[countOfSlot - i - 1].GetItem() is not null) continue;
+            // for (int j = i+1; j < countOfSlot; j++)
+            // {
+            //     if (slots[j].GetItem() is not null) continue;
+            //     slots[j].SetItem(slots[countOfSlot - i - 1].GetItem());
+            //     slots[countOfSlot - i - 1].SetItem(null);
+            //     amount--;
+            //     break;
+            // }
+            
+            if(slots[i].GetItem() is not null) continue;
+            for (int j = countOfSlot - 1; j > -1; j--)
+            {
+                if (slots[j].GetItem() is null) continue;
+                slots[i].SetItem(slots[j].GetItem());
+                slots[j].SetItem(null);
+                break;
             }
         }
+        Debug.Log("재구성 한 amount : "+amount);
         
     }
 
@@ -79,13 +93,23 @@ public class Inventory : MonoBehaviour
             slots[i].SetItem(null);
             break;
         }
+
+        amountCalc();
         Reconstruction();
     }
 
+    private void amountCalc()
+    {
+        if (amount >= 1) amount--;
+    }
+    
+    
     public void Remove(int idx)
     {
         slots[idx].SetItem(null);
+        amountCalc();
         Reconstruction();
+        Debug.Log("재구성 끝!");
     }
 
     public void Use(string name) {
@@ -147,9 +171,16 @@ public class Inventory : MonoBehaviour
 
     private void DescriptionUpdate(int idx)
     {
-        if (slots[idx].GetItem() == null) des.text = "";
+        if (slots[idx].GetItem() == null)
+        {
+            des.text = "";
+            preViewImage.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = null;
+            preViewImage.gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
         else {
             des.text = slots[idx].GetItem().Getdescription();
+            preViewImage.gameObject.transform.GetChild(0).GetComponent<Image>().sprite = slots[idx].GetItem().GetImage();
+            preViewImage.gameObject.transform.GetChild(0).gameObject.SetActive(true);
         }
     }
     

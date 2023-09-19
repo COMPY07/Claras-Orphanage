@@ -38,6 +38,7 @@ public class Door : MonoBehaviour
     }
     public virtual Vector3 Use() {
         if(!canUse) return Vector3.zero;
+        Debug.Log("이동합니다 -> "+nextRoomID +" "+movePos);
         return GameManager.RoomManager.MoveRoom(nextRoomID, movePos);;
     }
     

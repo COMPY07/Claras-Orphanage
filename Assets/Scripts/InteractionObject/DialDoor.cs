@@ -8,7 +8,7 @@ public class DialDoor : Door
     public GameObject DialWindow;
 
 
-    override public Vector3 Use()
+    public override Vector3 Use()
     {
         canUse = DialWindow.transform.GetComponent<Dial>().isComplete;
         if (!canUse) {
@@ -19,6 +19,7 @@ public class DialDoor : Door
         GameManager.Player.GetComponent<PlayerController>().inventory.Remove(0);
         GameManager.Player.GetComponent<PlayerController>().inventory.Remove(1);
         GameManager.Player.GetComponent<PlayerController>().inventory.Remove(2);
+        // GameManager.Player.GetComponent<PlayerController>().inventory.Re;
         return GameManager.RoomManager.MoveRoom(nextRoomID, movePos);;
         
 

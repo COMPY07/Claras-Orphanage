@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour {
     public static GameObject Clara;
     public static RoomManager RoomManager;
     public static SoundManager SoundManager;
-    
 
+    public static bool isClear;
+    
+    
     public static bool[] levels;
     
     
@@ -22,7 +24,8 @@ public class GameManager : MonoBehaviour {
         Clara = GameObject.FindGameObjectWithTag("Clara");
         RoomManager = GameObject.FindWithTag("RoomManager").GetComponent<RoomManager>();
         levels = new bool[3] {false, false, false } ;
-
+        isClear = false;
+        DontDestroyOnLoad(this.gameObject);
     }
     public static float getDistance() { return Math.Abs(Clara.transform.position.x - Player.transform.position.x); }
 

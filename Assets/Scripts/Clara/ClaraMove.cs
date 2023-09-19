@@ -67,7 +67,7 @@ public class ClaraMove : MonoBehaviour
             getDistance() < 5.5f &&
             !GameManager.Player.GetComponent<PlayerController>().isHide)
         {
-            Debug.Log(GameManager.Player.GetComponent<PlayerController>().isRoom);
+            // Debug.Log(GameManager.Player.GetComponent<PlayerController>().isRoom);
             if ((transform.position - GameManager.Player.transform.position).x > 0) dir = Vector3.left;
             else dir = Vector3.right;
         }
@@ -140,6 +140,7 @@ public class ClaraMove : MonoBehaviour
 
     void interaction()
     {
+        
     }
 
 

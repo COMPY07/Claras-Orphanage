@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class PlayerController : MonoBehaviour
     // [HideInInspector] public bool isHide;
     public bool isLive;
     public bool isHide;
-    private bool canHide, canPickup, canUseStair, canUseDoor;
+    private bool canHide, canPickup, canUseStair, canUseDoor, ending;
 
     [Header("현재 사용할 때 타고갈 객체")]
     private Stair stair;
@@ -53,7 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         isLive = true;
         isRoom = false;
-
+        ending = false;
         isHide = false;
         canHide = false;
         isWalk = false;
@@ -121,7 +122,8 @@ public class PlayerController : MonoBehaviour
     
     public void Dead() {
         isLive = false;
-        
+        SceneManager.LoadScene("EndScene");
+
     }
 
     private void Pickup() {
@@ -152,6 +154,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
     // endregion UseMethods
     
     
@@ -175,10 +178,11 @@ public class PlayerController : MonoBehaviour
                 stair = collider.gameObject.GetComponent<Stair>();
                 break;
             case "Door":
+            case "endBox":
                 canUseDoor = true;
                 door = collider.gameObject.GetComponent<Door>();
-                
                 break;
+                
             case "Clara":
                 if(!isHide) Dead();
                 break;
@@ -190,7 +194,7 @@ public class PlayerController : MonoBehaviour
             case "HideObject": 
                 canHide = false;
                 break;
-            case "Item": 
+            case "Item":
                 canPickup = false;
                 break;
             case "Stair":
