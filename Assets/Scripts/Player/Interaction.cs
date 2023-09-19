@@ -2,17 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interaction : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class Interaction {
+    
+    public static void UseStair(bool canUseStair, Stair stair) { if (canUseStair && Input.GetKey(KeyCode.F)) { GameManager.Player.transform.position = stair.GetNext(); } }
+    
+    public static void UseItem(){
+    
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

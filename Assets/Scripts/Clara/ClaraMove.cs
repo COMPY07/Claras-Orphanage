@@ -63,28 +63,43 @@ public class ClaraMove : MonoBehaviour
     }
 
     void move() {
-        if (moveTime <= 0) { moveSetup(); }
-        moveTime -= Time.deltaTime;
-        
-        
-        if ((transform.position + dir * speed * Time.deltaTime).x > right ||
-            (transform.position + dir * speed * Time.deltaTime).x < left) dir *= -1;
-        
+        if (!GameManager.Player.GetComponent<PlayerController>().isRoom &&
+            getDistance() < 5.5f &&
+            !GameManager.Player.GetComponent<PlayerController>().isHide)
+        {
+            // Debug.Log(GameManager.Player.GetComponent<PlayerController>().isRoom);
+            if ((transform.position - GameManager.Player.transform.position).x > 0) dir = Vector3.left;
+            else dir = Vector3.right;
+        }
+        else
+        {
+            if (moveTime <= 0) { moveSetup(); }
+
+            moveTime -= Time.deltaTime;
+            if ((transform.position + dir * speed * Time.deltaTime).x > right ||
+                (transform.position + dir * speed * Time.deltaTime).x < left) dir *= -1;
+
+            
+        }
         if (dir == Vector3.left) this.gameObject.transform.localScale = new Vector3(-2, 2, 3);
         else this.gameObject.transform.localScale = new Vector3(2, 2, 3);
         this.gameObject.transform.Translate(dir * speed * Time.deltaTime);
-        
+
     }
     
     // region move sub methods
     
     void moveSetup() {
-        if (getDistance() - moveRange < 0) { moveTime = Random.Range(1f, 3f); }
+        if (getDistance() - moveRange < 0)
+        {
+            dir = Random.Range(0, 2) == 0 ? Vector3.left : Vector3.right;
+            moveTime = Random.Range(1f, 1.8f);
+        }
         else {
             dir = GameManager.Player.transform.position.x - transform.position.x > 0 ? Vector3.right : Vector3.left;
-            moveTime = Random.Range(1f, getDistance() / speed * Time.deltaTime);
+            moveTime = Random.Range(0.5f, getDistance() / speed * Time.deltaTime);
         }
-        Debug.Log(dir+" "+moveTime);
+        // Debug.Log(dir+" "+moveTime);
         
         // min = 1, max = range랑 speed랑 현재 플레이어와의 거리로 고려한 식으로 바꿀거임
     }
@@ -125,6 +140,7 @@ public class ClaraMove : MonoBehaviour
 
     void interaction()
     {
+        
     }
 
 

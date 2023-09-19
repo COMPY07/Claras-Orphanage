@@ -7,6 +7,12 @@ TagManager:
   - HideObject
   - Clara
   - HidePanel
+  - Item
+  - Stair
+  - RoomManager
+  - Door
+  - Main
+  - endBox
   layers:
   - Default
   - TransparentFX
